@@ -38,7 +38,7 @@ ydl_opts = {
 @Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
 def song(_, message):
     query = " ".join(message.command[1:])
-    m = message.reply("🔎 finding song...")
+    m = message.reply("🔎 Genos : Sabar Bang...")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -54,7 +54,7 @@ def song(_, message):
         m.edit("❌ song not found.\n\nplease give a valid song name.")
         print(str(e))
         return
-    m.edit("📥 downloading file...")
+    m.edit("📥 lagi downloading file...")
     try:
         with yt_dlp.YoutubeDL(ydl_ops) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -65,7 +65,7 @@ def song(_, message):
         for i in range(len(dur_arr) - 1, -1, -1):
             dur += int(float(dur_arr[i])) * secmul
             secmul *= 60
-        m.edit("📤 uploading file...")
+        m.edit("📤 udah uploading ...")
         message.reply_audio(
             audio_file,
             caption=rep,
@@ -76,7 +76,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ error, wait for bot owner to fix")
+        m.edit("Yah error, wait for bot owner to fix")
         print(e)
 
     try:
@@ -114,14 +114,14 @@ async def vsong(client, message):
     except Exception as e:
         print(e)
     try:
-        msg = await message.reply("📥 **downloading video...**")
+        msg = await message.reply("📥 **Genos : Sabar Bang...**")
         with YoutubeDL(ydl_opts) as ytdl:
             ytdl_data = ytdl.extract_info(link, download=True)
             file_name = ytdl.prepare_filename(ytdl_data)
     except Exception as e:
         return await msg.edit(f"🚫 **error:** {e}")
     preview = wget.download(thumbnail)
-    await msg.edit("📤 **uploading video...**")
+    await msg.edit("📤 **lagi uploading video...**")
     await message.reply_video(
         file_name,
         duration=int(ytdl_data["duration"]),
@@ -142,7 +142,7 @@ async def lyrics(_, message):
             await message.reply_text("» **give a lyric name too.**")
             return
         query = message.text.split(None, 1)[1]
-        rep = await message.reply_text("🔎 **searching lyrics...**")
+        rep = await message.reply_text("🔎 **Genos searching lyrics...**")
         resp = requests.get(
             f"https://api-tede.herokuapp.com/api/lirik?l={query}"
         ).json()
